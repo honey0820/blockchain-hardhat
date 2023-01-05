@@ -22,9 +22,9 @@ contract SYRFICO {
     IBEP20 BUSD;
     IBEP20 USDT;
     IBEP20 USDC;
-    address public BUSD_Addr = 0xE71a93D5089db5F115DBd9644CA8538A69813362;
-    address public USDT_Addr = 0xB3e08b8bf27D7325D31fb520d0dF786074a128E6;
-    address public USDC_Addr = 0x632c9b56D8187eeeEDdA3dC1BC241245D5d0A7F5;
+    address public BUSD_Addr = 0xe5f0332CA42459333149b67aF2d0E486D03F8a83;
+    address public USDT_Addr = 0x9C9fF5DE0968dF850905E74bAA6a17FED1Ba042a;
+    address public USDC_Addr = 0xB34db0d5aA577998c10c80d76F87AfE58b024e5F;
     // address private priceAddress = 0x0567F2323251f0Aab15c8dFb1967E4e8A7D42aeE; // BNB/USD Mainnet
     address private priceAddress = 0x2514895c72f50D8bd4B4F9b1110F0D6bD2c97526; // BNB/USD Testnet
 
@@ -215,7 +215,7 @@ contract SYRFICO {
         return token.balanceOf(_investor);
     }
 
-    function getLatestPrice() public view returns (uint) {
+    function getLatestPrice() public view returns (int) {
         (
             ,
             /*uint80 roundID*/ int price /*uint startedAt*/ /*uint timeStamp*/ /*uint80 answeredInRound*/,
@@ -223,6 +223,6 @@ contract SYRFICO {
             ,
 
         ) = priceFeed.latestRoundData();
-        return (uint)(price);
+        return price;
     }
 }
