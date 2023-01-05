@@ -19,15 +19,18 @@ async function main() {
 
 
 
-  const CroxToken = await hre.ethers.getContractFactory("CroxToken");
-  const CroxFee = await hre.ethers.getContractFactory("CroxFee");
+  // const CroxToken = await hre.ethers.getContractFactory("CroxToken");
+  // const CroxFee = await hre.ethers.getContractFactory("CroxFee");
+  const BNBPrice = await hre.ethers.getContractFactory("PriceContract");
 
+  const bnbprice = await (await BNBPrice.deploy()).deployed();
+  console.log('bnbprice contract deployed at', bnbprice.address);
 
-  const croxToken = await (await CroxToken.deploy()).deployed();
-  console.log('Crox contract deployed at', croxToken.address);
+  // const croxToken = await (await CroxToken.deploy()).deployed();
+  // console.log('Crox contract deployed at', croxToken.address);
 
-  const croxFee = await CroxFee.deploy("0x5d07b4f9cA73589d84E70A8191ed7fc948f169c0");
-  console.log('CroxFee contract deployed at', croxFee.address);
+  // const croxFee = await CroxFee.deploy("0x5d07b4f9cA73589d84E70A8191ed7fc948f169c0");
+  // console.log('CroxFee contract deployed at', croxFee.address);
 
   // const masterChef = await MasterChef.deploy("0xf902B2Acb43b430a44e7f63915460150119cfd43");
   // console.log('MasterChef contract deployed at', masterChef.address);

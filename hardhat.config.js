@@ -34,7 +34,7 @@ module.exports = {
   etherscan: {
     // Your API key for Etherscan
     // Obtain one at https://explorer.matic.network/
-    apiKey: process.env.ETHERSCAN_API_KEY
+    apiKey: process.env.BSCSCAN_API_KEY
   },
 
   paths: {
