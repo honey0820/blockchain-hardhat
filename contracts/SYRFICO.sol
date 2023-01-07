@@ -163,13 +163,13 @@ contract SYRFICO {
     //Invest
     function invest() public payable returns (bool) {
         require(ICOState == State.RUNNING, "ICO isn't running");
-        require(raisedAmount.add((msg.value.mul(getLatestPrice())).div(tokenPrice.mul(1e24))) <= hardCap, "Send within hardcap range");
+        require(raisedAmount.add((msg.value.mul(getLatestPrice())).div(tokenPrice.mul(1e6))) <= hardCap.mul(10**18), "Send within hardcap range");
 
-        uint tokens = ((msg.value.mul(getLatestPrice())).div(tokenPrice.mul(1e24))).mul(1e18);
+        uint tokens = ((msg.value.mul(getLatestPrice())).div(tokenPrice.mul(1e6)));
 
-        investedAmountOf[msg.sender] = investedAmountOf[msg.sender].add(tokens.div(1e18));
+        investedAmountOf[msg.sender] = investedAmountOf[msg.sender].add(tokens);
 
-        raisedAmount = raisedAmount.add(tokens.div(1e18));
+        raisedAmount = raisedAmount.add(tokens);
 
         bool saleSuccess = token.transfer(msg.sender, tokens);
         require(saleSuccess, "Failed to Invest");
@@ -182,9 +182,9 @@ contract SYRFICO {
     function buyWithTokens(uint token_amount, address _tokenAddr) public returns (bool) {
         require(ICOState == State.RUNNING, "ICO isn't running");
         require(token_amount > 0, "Amount can't be zero numbers");
-        require(raisedAmount.add(token_amount.div(tokenPrice.mul(1e16))) <= hardCap, "Send within hardcap range");
+        require(raisedAmount.add(token_amount.mul(10**2).div(tokenPrice)) <= hardCap.mul(10**18), "Send within hardcap range");
 
-        uint tokens = (token_amount.div(tokenPrice.mul(1e16))).mul(1e18);
+        uint tokens = token_amount.mul(1e2).div(tokenPrice);
 
         if(_tokenAddr == BUSD_Addr) {
             BUSD.transferFrom(msg.sender, address(this), token_amount); // Bring ICO contract address BUSD tokens from buyer
@@ -196,8 +196,8 @@ contract SYRFICO {
             return false;
         }
 
-        investedAmountOf[msg.sender] = investedAmountOf[msg.sender].add(tokens.div(1e18));
-        raisedAmount = raisedAmount.add(tokens.div(1e18));
+        investedAmountOf[msg.sender] = investedAmountOf[msg.sender].add(tokens);
+        raisedAmount = raisedAmount.add(tokens);
         token.transfer(msg.sender, tokens); // Send WSYRF tokens to buyer
 
         emit BoughtTokens(msg.sender, tokens); // log event onto the blockchain
