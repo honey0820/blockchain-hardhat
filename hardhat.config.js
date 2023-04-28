@@ -21,8 +21,11 @@ const PRIVATE_KEY = process.env.PRIVATE_KEY;
  * @type import('hardhat/config').HardhatUserConfig
  */
 module.exports = {
+  solidity: ""
+}
+module.exports = {
   solidity: {
-    version: "0.8.16",
+    version: "0.8.18",
     settings: {
       optimizer: {
         enabled: true,
@@ -58,6 +61,12 @@ module.exports = {
     rinkeby: {
       url: `https://rinkeby.infura.io/v3/e92c433ba7214537873fe0025ee0763c`,
       chainId: 4,
+      accounts: [`0x${PRIVATE_KEY}`]
+    },
+
+    goerli: {
+      url: `https://goerli.infura.io/v3/e92c433ba7214537873fe0025ee0763c`,
+      chainId: 5,
       accounts: [`0x${PRIVATE_KEY}`]
     },
 
